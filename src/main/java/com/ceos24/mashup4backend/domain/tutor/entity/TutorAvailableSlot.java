@@ -1,5 +1,6 @@
 package com.ceos24.mashup4backend.domain.tutor.entity;
 
+import com.ceos24.mashup4backend.domain.tutor.enums.SlotStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

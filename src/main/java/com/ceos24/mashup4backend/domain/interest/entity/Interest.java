@@ -1,14 +1,11 @@
 package com.ceos24.mashup4backend.domain.interest.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "interest")
@@ -20,14 +17,15 @@ public class Interest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, unique = true, length = 50)
+    private InterestType type;
 
-    private Interest(String name) {
-        this.name = name;
+    private Interest(InterestType type) {
+        this.type = Objects.requireNonNull(type);
     }
 
-    public static Interest create(String name) {
-        return new Interest(name);
+    public static Interest create(InterestType type) {
+        return new Interest(type);
     }
 }

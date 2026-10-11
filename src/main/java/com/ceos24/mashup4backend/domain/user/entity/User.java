@@ -10,6 +10,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.ZoneId;
+import java.util.Objects;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -26,20 +29,36 @@ public class User {
     @Column(name = "image", columnDefinition = "TEXT")
     private String image;
 
-    @Column(name = "has_lesson_pass", nullable = false)
-    private boolean hasLessonPass = false;
+    @Column(name = "time_zone", nullable = false, length = 50)
+    private String timeZone = "Asia/Seoul";
 
-    public User(String name, String image) {
-        this.name = name;
+    @Column(name = "credit_20_min_count", nullable = false)
+    private int credit20MinCount = 0;
+
+    @Column(name = "credit_40_min_count", nullable = false)
+    private int credit40MinCount = 0;
+
+    @Column(name = "points", nullable = false)
+    private long points = 0L;
+
+    @Column(name = "unused_coupon_count", nullable = false)
+    private int unusedCouponCount = 0;
+
+    private User(String name, String image) {
+        this.name = Objects.requireNonNull(name, "이름은 필수입니다.");
         this.image = image;
+    }
+
+    public static User create(String name, String image) {
+        return new User(name, image);
     }
 
     public void updateProfile(String name, String image) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name, "이름은 필수입니다.");
         this.image = image;
     }
 
-    public void grantLessonPass() {
-        this.hasLessonPass = true;
+    public boolean hasLessonPass() {
+        return credit20MinCount > 0 || credit40MinCount > 0;
     }
 }

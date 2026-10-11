@@ -1,4 +1,4 @@
-package com.ceos24.mashup4backend.domain.tutor.entity;
+package com.ceos24.mashup4backend.domain.tutor.enums;
 
 public enum SlotStatus {
 
