@@ -10,6 +10,7 @@ public enum ErrorCode {
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "입력값이 올바르지 않습니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."),
     TUTOR_NOT_FOUND(HttpStatus.NOT_FOUND, "튜터를 찾을 수 없습니다."),
+    FAVORITE_TUTOR_NOT_FOUND(HttpStatus.NOT_FOUND, "북마크한 튜터가 아닙니다."),
     FAVORITE_TUTOR_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 북마크한 튜터입니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버 오류가 발생했습니다.");
 

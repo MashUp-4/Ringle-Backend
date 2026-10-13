@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +28,16 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ApiResponse.success("FAVORITE_TUTOR_CREATED", "튜터를 북마크했습니다.", null));
+    }
+
+    @DeleteMapping("/me/favorite-tutors/{tutorId}")
+    public ResponseEntity<ApiResponse<Void>> removeFavorite(
+            @PathVariable("tutorId") @Positive Long tutorId
+    ) {
+        Long userId = 1L;
+        tutorFavoriteService.removeFavorite(userId, tutorId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponse.success("FAVORITE_TUTOR_REMOVED", "튜터 북마크를 해제했습니다.", null));
     }
 }

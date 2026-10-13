@@ -31,4 +31,15 @@ public class TutorFavoriteService {
 
         tutorFavoriteRepository.save(TutorFavorite.create(user, tutor));
     }
+
+    @Transactional
+    public void removeFavorite(Long userId, Long tutorId) {
+        userService.getUser(userId);
+        tutorService.getTutor(tutorId);
+
+        TutorFavorite tutorFavorite = tutorFavoriteRepository.findByUserIdAndTutorId(userId, tutorId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.FAVORITE_TUTOR_NOT_FOUND));
+
+        tutorFavoriteRepository.delete(tutorFavorite);
+    }
 }
