@@ -1,5 +1,6 @@
 package com.ceos24.mashup4backend.domain.user.service;
 
+import com.ceos24.mashup4backend.domain.user.dto.ProfileImageResponse;
 import com.ceos24.mashup4backend.domain.user.entity.User;
 import com.ceos24.mashup4backend.domain.user.repository.UserRepository;
 import com.ceos24.mashup4backend.global.exception.BusinessException;
@@ -18,5 +19,10 @@ public class UserService {
     public User getUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+    }
+
+    public ProfileImageResponse getProfileImage(Long userId) {
+        User user = getUser(userId);
+        return new ProfileImageResponse(user.getImage());
     }
 }
