@@ -2,6 +2,7 @@ package com.ceos24.mashup4backend.domain.user.controller;
 
 import com.ceos24.mashup4backend.domain.tutor.service.TutorFavoriteService;
 import com.ceos24.mashup4backend.domain.user.dto.ProfileImageResponse;
+import com.ceos24.mashup4backend.domain.user.dto.UserSummaryResponse;
 import com.ceos24.mashup4backend.domain.user.service.UserService;
 import com.ceos24.mashup4backend.global.response.ApiResponse;
 import jakarta.validation.constraints.Positive;
@@ -22,6 +23,14 @@ public class UserController {
 
     private final TutorFavoriteService tutorFavoriteService;
     private final UserService userService;
+
+    @GetMapping("/me/summary")
+    public ResponseEntity<ApiResponse<UserSummaryResponse>> getSummary() {
+        Long userId = 1L;
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponse.success("회원 정보를 조회했습니다.", userService.getSummary(userId)));
+    }
 
     @GetMapping("/me/profile-image")
     public ResponseEntity<ApiResponse<ProfileImageResponse>> getProfileImage() {
