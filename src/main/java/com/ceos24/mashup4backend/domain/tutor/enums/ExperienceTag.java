@@ -1,5 +1,6 @@
 package com.ceos24.mashup4backend.domain.tutor.enums;
 
+// 경험
 public enum ExperienceTag {
     MARKETING_SALES,
     STRATEGY_PLANNING,
