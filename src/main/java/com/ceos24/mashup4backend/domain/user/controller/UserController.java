@@ -1,7 +1,9 @@
 package com.ceos24.mashup4backend.domain.user.controller;
 
+import com.ceos24.mashup4backend.domain.lesson.service.LessonService;
 import com.ceos24.mashup4backend.domain.tutor.service.TutorFavoriteService;
 import com.ceos24.mashup4backend.domain.user.dto.ProfileImageResponse;
+import com.ceos24.mashup4backend.domain.user.dto.UserClassCountResponse;
 import com.ceos24.mashup4backend.domain.user.dto.UserSummaryResponse;
 import com.ceos24.mashup4backend.domain.user.service.UserService;
 import com.ceos24.mashup4backend.global.response.ApiResponse;
@@ -26,6 +28,7 @@ public class UserController {
 
     private final TutorFavoriteService tutorFavoriteService;
     private final UserService userService;
+    private final LessonService lessonService;
 
     @GetMapping("/me/summary")
     @Operation(summary = "유저 회원 정보 요약 조회", description = "이름, 시간대, 수업권, 포인트, 미사용 쿠폰 수를 조회합니다.")
@@ -43,6 +46,15 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(ApiResponse.success("프로필 사진을 조회했습니다.", userService.getProfileImage(userId)));
+    }
+
+    @GetMapping("/me/class-counts")
+    @Operation(summary = "예정된 수업 수 조회", description = "한국 시간 기준 아직 시작하지 않은 예약 완료 수업 수를 조회합니다.")
+    public ResponseEntity<ApiResponse<UserClassCountResponse>> getClassCounts() {
+        Long userId = 1L;
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiResponse.success("예정된 수업 수를 조회했습니다.", lessonService.getClassCounts(userId)));
     }
 
     @PostMapping("/me/favorite-tutors/{tutorId}")
