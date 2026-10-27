@@ -1,5 +1,6 @@
 package com.ceos24.mashup4backend.domain.tutor;
 
+import com.ceos24.mashup4backend.domain.learning.entity.LearningGoal;
 import com.ceos24.mashup4backend.domain.tutor.entity.Tutor;
 import com.ceos24.mashup4backend.domain.tutor.entity.TutorAvailableSlot;
 import com.ceos24.mashup4backend.domain.tutor.enums.*;
@@ -81,7 +82,8 @@ class TutorAvailabilityTest {
     }
 
     private Tutor tutor(String name) {
-        Tutor tutor = Tutor.create(name, "https://example.com/a.png", null, null, Gender.FEMALE, "US", null);
+        Tutor tutor = Tutor.create(name, "https://example.com/a.png", null, null,
+                Gender.FEMALE, "US", null, LearningGoal.BUSINESS_ENGLISH);
         em.persist(tutor);
         return tutor;
     }
