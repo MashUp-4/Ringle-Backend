@@ -1,6 +1,11 @@
 package com.ceos24.mashup4backend.domain.tutor.entity;
 
-import com.ceos24.mashup4backend.domain.tutor.enums.*;
+import com.ceos24.mashup4backend.domain.learning.entity.LearningGoal;
+import com.ceos24.mashup4backend.domain.tutor.enums.Accent;
+import com.ceos24.mashup4backend.domain.tutor.enums.ExperienceTag;
+import com.ceos24.mashup4backend.domain.tutor.enums.FieldOfStudy;
+import com.ceos24.mashup4backend.domain.tutor.enums.Gender;
+import com.ceos24.mashup4backend.domain.tutor.enums.StrengthTag;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,12 +15,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "tutor")
@@ -29,6 +33,10 @@ public class Tutor {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "learning_goal", nullable = false, length = 30)
+    private LearningGoal learningGoal;
 
     @Column(
             name = "profile_image_url",
@@ -98,7 +106,8 @@ public class Tutor {
             String major,
             Gender gender,
             String country,
-            String introduction
+            String introduction,
+            LearningGoal learningGoal
     ) {
         this.name = Objects.requireNonNull(name, "이름은 필수입니다.");
         this.profileImageUrl = Objects.requireNonNull(
@@ -109,6 +118,7 @@ public class Tutor {
         this.gender = Objects.requireNonNull(gender, "성별은 필수입니다.");
         this.country = Objects.requireNonNull(country, "국가는 필수입니다.");
         this.introduction = introduction;
+        this.learningGoal = Objects.requireNonNull(learningGoal, "학습 목적은 필수입니다.");
     }
 
     public static Tutor create(
@@ -118,7 +128,8 @@ public class Tutor {
             String major,
             Gender gender,
             String country,
-            String introduction
+            String introduction,
+            LearningGoal learningGoal
     ) {
         return new Tutor(
                 name,
@@ -127,7 +138,8 @@ public class Tutor {
                 major,
                 gender,
                 country,
-                introduction
+                introduction,
+                learningGoal
         );
     }
 
