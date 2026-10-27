@@ -1,6 +1,7 @@
 package com.ceos24.mashup4backend.domain.tutor;
 
 import com.ceos24.mashup4backend.domain.interest.entity.*;
+import com.ceos24.mashup4backend.domain.learning.entity.LearningGoal;
 import com.ceos24.mashup4backend.domain.lesson.entity.Lesson;
 import com.ceos24.mashup4backend.domain.tutor.entity.*;
 import com.ceos24.mashup4backend.domain.tutor.enums.*;
@@ -38,9 +39,13 @@ class TutorSearchApiTest {
     void seed() {
         mvc = MockMvcBuilders.webAppContextSetup(context).build();
         // Controller currently uses user ID 1. Explicit ID avoids AUTO_INCREMENT drift.
-        em.createNativeQuery("insert into users (id, name, time_zone, credit_20_min_count, credit_40_min_count, points, unused_coupon_count) values (1, 'Filter Test User', 'Asia/Seoul', 0, 0, 0, 0)").executeUpdate();
+        em.createNativeQuery("""
+                insert into users (id, name, learning_goal, time_zone,
+                                   credit_20_min_count, credit_40_min_count, points, unused_coupon_count)
+                values (1, 'Filter Test User', 'BUSINESS_ENGLISH', 'Asia/Seoul', 0, 0, 0, 0)
+                """).executeUpdate();
         User user = em.find(User.class, 1L);
-        User other = User.create("Other Test User", null);
+        User other = User.create("Other Test User", null, LearningGoal.BUSINESS_ENGLISH);
         em.persist(other);
         alice = tutor("Alice", "Computer Science", Gender.FEMALE, FieldOfStudy.ENGINEERING,
                 Accent.AMERICAN, ExperienceTag.IT_DEVELOPMENT, StrengthTag.BUSINESS_ENGLISH, true, 4.5f, 5, 90);
@@ -149,7 +154,8 @@ class TutorSearchApiTest {
     private Tutor tutor(String name, String major, Gender gender, FieldOfStudy field,
                         Accent accent, ExperienceTag experience, StrengthTag strength,
                         boolean pointback, float rating, int reviews, int acceptance) {
-        Tutor tutor = Tutor.create(name, "https://example.com/test.png", "Test University", major, gender, "US", null);
+        Tutor tutor = Tutor.create(name, "https://example.com/test.png", "Test University", major,
+                gender, "US", null, LearningGoal.BUSINESS_ENGLISH);
         tutor.updateClassification(field, accent, experience);
         tutor.updateStrength(strength);
         tutor.updatePointback(pointback);

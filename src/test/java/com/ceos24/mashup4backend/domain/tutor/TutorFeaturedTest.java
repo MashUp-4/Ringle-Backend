@@ -1,5 +1,6 @@
 package com.ceos24.mashup4backend.domain.tutor;
 
+import com.ceos24.mashup4backend.domain.learning.entity.LearningGoal;
 import com.ceos24.mashup4backend.domain.tutor.dto.TutorSearchRequest;
 import com.ceos24.mashup4backend.domain.tutor.entity.Tutor;
 import com.ceos24.mashup4backend.domain.tutor.entity.TutorAvailableSlot;
@@ -74,7 +75,7 @@ class TutorFeaturedTest {
 
     private Tutor tutor(Float rating, int reviews, Integer acceptanceRate) {
         Tutor tutor = Tutor.create("Tutor", "https://example.com/a.png", null, null,
-                Gender.FEMALE, "US", null);
+                Gender.FEMALE, "US", null, LearningGoal.BUSINESS_ENGLISH);
         tutor.updateAcceptanceRate(acceptanceRate);
         em.persist(tutor);
         em.flush();
