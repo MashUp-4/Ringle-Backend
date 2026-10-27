@@ -1,6 +1,7 @@
 package com.ceos24.mashup4backend.domain.user.entity;
 
 import com.ceos24.mashup4backend.domain.learning.entity.LearningGoal;
+import com.ceos24.mashup4backend.domain.tutor.enums.FieldOfStudy;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -34,6 +35,10 @@ public class User {
     @Column(name = "learning_goal", nullable = false, length = 30)
     private LearningGoal learningGoal;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "field_of_study", length = 30)
+    private FieldOfStudy fieldOfStudy;
+
     @Column(name = "time_zone", nullable = false, length = 50)
     private String timeZone = "Asia/Seoul";
 
@@ -66,5 +71,9 @@ public class User {
 
     public boolean hasLessonPass() {
         return credit20MinCount > 0 || credit40MinCount > 0;
+    }
+
+    public void updateFieldOfStudy(FieldOfStudy fieldOfStudy) {
+        this.fieldOfStudy = fieldOfStudy;
     }
 }
