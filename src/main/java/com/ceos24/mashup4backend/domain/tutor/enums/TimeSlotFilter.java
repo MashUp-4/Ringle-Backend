@@ -12,6 +12,7 @@ public enum TimeSlotFilter {
     TIME_07_09(7, 9),
     TIME_09_12(9, 12),
     TIME_12_15(12, 15),
+    TIME_15_17(15, 17),
     TIME_19_21(19, 21),
     TIME_21_24(21, 24);
 
